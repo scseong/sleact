@@ -10,9 +10,15 @@
   "author": "ZeroCho",
   "license": "MIT",
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@loadable/component": "^5.15.0",
+    "axios": "^0.21.1",
     "cross-env": "^7.0.3",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "swr": "^0.5.6"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",
