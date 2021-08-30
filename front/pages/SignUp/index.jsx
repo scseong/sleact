@@ -36,7 +36,6 @@ const SignUp = () => {
     (e) => {
       e.preventDefault();
       if (!mismatchError) {
-        console.log('서버로 회원가입하기');
         setSignUpSuccess(false);
         setSignUpError('');
         axios
@@ -64,7 +63,7 @@ const SignUp = () => {
   }
 
   if (data) {
-    return <Redirect to="/workspace/channel"></Redirect>;
+    return <Redirect to="/workspace/sleact/channel/일반"></Redirect>;
   }
 
   return (
