@@ -12,7 +12,7 @@ const CreateChannelModal = ({ show, onCloseModal, setShowCreateChannelModal }) =
   const [newChannel, onChangeNewChannel, setNewChannel] = useInput('');
   const { workspace, channel } = useParams();
 
-  const { data: userData, error, revalidate, mutate } = useSWR('http://localhost:3095/api/users', fetcher);
+  const { data: userData, error, revalidate, mutate } = useSWR('/api/users', fetcher);
   const { data: channelData, revalidate: revalidateChannel } = useSWR(
     userData ? `/api/workspaces/${workspace}/channels` : null,
     fetcher,
