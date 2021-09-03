@@ -27,6 +27,7 @@
     "react-mentions": "^4.3.0",
     "react-router-dom": "^5.2.0",
     "react-toastify": "^8.0.1",
+    "socket.io-client": "^2.4.0",
     "swr": "^0.5.6"
   },
   "devDependencies": {
