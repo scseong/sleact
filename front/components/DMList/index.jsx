@@ -34,7 +34,7 @@ const DMList = () => {
   );
 
   const onMessage = (data) => {
-    console.log('dm왔다', data);
+    // console.log('dm왔다', data);
     setCountList((list) => {
       return {
         ...list,
@@ -44,20 +44,22 @@ const DMList = () => {
   };
 
   useEffect(() => {
-    console.log('DMList: workspace 바꼈다', workspace);
+    // console.log('DMList: workspace 바꼈다', workspace);
     setOnlineList([]);
     setCountList({});
   }, [workspace]);
 
   useEffect(() => {
+    console.log('here?');
     socket?.on('onlineList', (data) => {
+      console.log('list: ', data);
       setOnlineList(data);
     });
     socket?.on('dm', onMessage);
-    console.log('socket on dm', socket?.hasListeners('dm'), socket);
+    // console.log('socket on dm', socket?.hasListeners('dm'), socket);
     return () => {
       socket?.off('dm', onMessage);
-      console.log('socket off dm', socket?.hasListeners('dm'));
+      // console.log('socket off dm', socket?.hasListeners('dm'));
       socket?.off('onlineList');
     };
   }, [socket]);

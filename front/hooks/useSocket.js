@@ -1,34 +1,26 @@
-import io from 'socket.io-client';
 import { useCallback } from 'react';
-import axios from 'axios';
+import io from 'socket.io-client';
 
-const backUrl = 'http://localhost:3095';
+const backUrl = process.env.NODE_ENV === 'production' ? 'https://sleact.nodebird.com' : 'http://localhost:3095';
+
 const sockets = {};
-
 const useSocket = (workspace) => {
+  console.log('rerender', workspace);
   const disconnect = useCallback(() => {
-    if (workspace) {
+    if (workspace && sockets[workspace]) {
       sockets[workspace].disconnect();
+      delete sockets[workspace];
     }
-  }, []);
-
+  }, [workspace]);
   if (!workspace) {
     return [undefined, disconnect];
   }
-
-  sockets[workspace] = io.connect(`${backUrl}/ws-${workspace}`, {
-    transports: ['websocket'],
-  });
-  sockets[workspace].emit('hello', 'world');
-  sockets[workspace].on('message', (data) => {
-    console.log(data);
-  });
-  sockets[workspace].on('data', (data) => {
-    console.log(data);
-  });
-  sockets[workspace].on('onlineList', (data) => {
-    console.log(data);
-  });
+  if (!sockets[workspace]) {
+    sockets[workspace] = io.connect(`${backUrl}/ws-${workspace}`, {
+      transports: ['websocket'],
+    });
+    console.info('create socket', workspace, sockets[workspace]);
+  }
 
   return [sockets[workspace], disconnect];
 };

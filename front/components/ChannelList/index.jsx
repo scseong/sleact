@@ -1,4 +1,4 @@
-// import useSocket from '@hooks/useSocket';
+import useSocket from '@hooks/useSocket';
 import { CollapseButton } from '@components/DMList/styles';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router';
@@ -13,7 +13,7 @@ const ChannelList = () => {
     dedupingInterval: 2000, // 2초
   });
   const { data: channelData } = useSWR(userData ? `/api/workspaces/${workspace}/channels` : null, fetcher);
-  // const [socket] = useSocket(workspace);
+  const [socket] = useSocket(workspace);
   const [channelCollapse, setChannelCollapse] = useState(false);
   const [countList, setCountList] = useState({});
 
@@ -57,14 +57,14 @@ const ChannelList = () => {
     });
   };
 
-  // useEffect(() => {
-  //   socket?.on('message', onMessage);
-  //   console.log('socket on message', socket?.hasListeners('message'));
-  //   return () => {
-  //     socket?.off('message', onMessage);
-  //     console.log('socket off message', socket?.hasListeners('message'));
-  //   };
-  // }, [socket]);
+  useEffect(() => {
+    socket?.on('message', onMessage);
+    console.log('socket on message', socket?.hasListeners('message'));
+    return () => {
+      socket?.off('message', onMessage);
+      console.log('socket off message', socket?.hasListeners('message'));
+    };
+  }, [socket]);
 
   return (
     <>

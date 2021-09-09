@@ -12,10 +12,10 @@ const InviteChannelModal = ({ show, onCloseModal, setShowInviteChannelModal }) =
   const { workspace, channel } = useParams();
   const [newMember, onChangeNewMember, setNewMember] = useInput('');
   const { data: userData } = useSWR('/api/users', fetcher);
-  const { revalidate: revalidateMembers } = useSWR(
-    userData ? `/api/workspaces/${workspace}/channels/${channel}/members` : null,
-    fetcher,
-  );
+  // const { revalidate: revalidateMembers } = useSWR(
+  //   userData ? `/api/workspaces/${workspace}/channels/${channel}/members` : null,
+  //   fetcher,
+  // );
   const onInviteMember = useCallback(
     (e) => {
       e.preventDefault();

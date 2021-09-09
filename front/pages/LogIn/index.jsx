@@ -19,8 +19,8 @@ const LogIn = () => {
       setLogInError(false);
       axios
         .post('/api/users/login', { email, password }, { withCredentials: true })
-        .then((response) => {
-          mutate(response.data, false);
+        .then(() => {
+          revalidate();
         })
         .catch((error) => {
           setLogInError(error.response?.data?.statusCode === 401);

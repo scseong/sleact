@@ -35,23 +35,12 @@ import ChannelList from '@components/ChannelList';
 import DMList from '@components/DMList';
 
 const Workspace = () => {
-  const { workspace } = useParams();
+  const params = useParams();
+  const { workspace } = params;
   const { data: userData, error, revalidate, mutate } = useSWR('/api/users', fetcher);
   const { data: channelData } = useSWR(userData ? `/api/workspaces/${workspace}/channels` : null, fetcher);
   const { data: memberData } = useSWR(userData ? `/api/workspaces/${workspace}/members` : null, fetcher);
   const [socket, disconnect] = useSocket(workspace);
-
-  useEffect(() => {
-    if (channelData && userData & socket) {
-      socket.emit('login', { id: userData.id, channel: channelData.map((v) => v.id) });
-    }
-  }, [socket, channelData, userData]);
-
-  useEffect(() => {
-    return () => {
-      disconnect();
-    };
-  }, [workspace, disconnect]);
 
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showCreateWorkspaceModal, setShowCreateWorkspaceModal] = useState(false);
@@ -135,6 +124,19 @@ const Workspace = () => {
     setShowInviteWorkspaceModal(true);
   }, []);
 
+  useEffect(() => {
+    console.log('hi');
+    if (channelData && userData) {
+      socket.emit('login', { id: userData.id, channel: channelData.map((v) => v.id) });
+    }
+  }, [socket, channelData, userData]);
+
+  useEffect(() => {
+    return () => {
+      disconnect();
+    };
+  }, [workspace, disconnect]);
+
   if (!userData) {
     return <Redirect to="/login"></Redirect>;
   }
@@ -165,7 +167,7 @@ const Workspace = () => {
       </Header>
       <WorkspaceWrapper>
         <Workspaces>
-          {userData?.Workspaces.map((ws) => {
+          {userData?.Workspaces?.map((ws) => {
             return (
               <Link key={ws.id} to={`/workspace/${ws.url}/channel/일반`}>
                 <WorkspaceButton>{ws.name.slice(0, 1).toUpperCase()}</WorkspaceButton>
