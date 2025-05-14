@@ -1,7 +1,7 @@
 import path from 'path';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-import webpack, { Configuration as WebpackConfiguration } from "webpack";
-import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
+import webpack, { Configuration as WebpackConfiguration } from 'webpack';
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
@@ -44,7 +44,7 @@ const config: Configuration = {
               },
             ],
             '@babel/preset-react',
-            '@babel/preset-typescript',
+            ['@babel/preset-typescript', { runtime: 'automatic' }],
           ],
           env: {
             development: {
