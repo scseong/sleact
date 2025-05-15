@@ -43,7 +43,7 @@ const config: Configuration = {
                 debug: isDevelopment,
               },
             ],
-            '@babel/preset-react',
+            ['@babel/preset-react', { runtime: 'automatic' }],
             ['@babel/preset-typescript', { runtime: 'automatic' }],
           ],
           env: {
