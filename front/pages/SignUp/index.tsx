@@ -1,17 +1,34 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import useInput from '@hooks/useInput';
 import { Form, Label, Input, LinkContainer, Button, Header } from './styles';
 
 const SignUp = () => {
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
-  const [password, onChangePassword] = useInput('');
-  const [passwordCheck, onChangePasswordCheck] = useInput('');
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [mismatchError, setMismatchError] = useState(false);
 
-  const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(email, nickname, password, passwordCheck);
-  }, []);
+  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setPassword(value);
+    setMismatchError(value === passwordCheck);
+  };
+
+  const onChangePasswordCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setPasswordCheck(value);
+    setMismatchError(value === password);
+  };
+
+  const onSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      if (!mismatchError) console.log('로그인');
+    },
+    [email, nickname, password, passwordCheck, mismatchError],
+  );
 
   return (
     <div id="container">
