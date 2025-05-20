@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import useInput from '@hooks/useInput';
 import { Form, Label, Input, LinkContainer, Button, Header } from './styles';
+import { signup } from '@apis/auth';
 
 const SignUp = () => {
   const [email, onChangeEmail] = useInput('');
@@ -12,20 +13,26 @@ const SignUp = () => {
   const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setPassword(value);
-    setMismatchError(value === passwordCheck);
+    setMismatchError(value !== passwordCheck);
   };
 
   const onChangePasswordCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setPasswordCheck(value);
-    setMismatchError(value === password);
+    setMismatchError(value !== password);
   };
 
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      if (!mismatchError) console.log('로그인');
+      try {
+        if (!mismatchError && nickname) {
+          const response = signup({ nickname, password, email });
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
     [email, nickname, password, passwordCheck, mismatchError],
   );
@@ -49,14 +56,14 @@ const SignUp = () => {
         <Label id="password-label">
           <span>비밀번호</span>
           <div>
-            <Input type="password" id="password" name="password" value={password} onChange={onChangePassword} />
+            <Input type="new-password" id="password" name="password" value={password} onChange={onChangePassword} />
           </div>
         </Label>
         <Label id="password-check-label">
           <span>비밀번호 확인</span>
           <div>
             <Input
-              type="password"
+              type="new-password"
               id="password-check"
               name="password-check"
               value={passwordCheck}
