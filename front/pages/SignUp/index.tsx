@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import useInput from '@hooks/useInput';
-import { Form, Label, Input, LinkContainer, Button, Header } from './styles';
 import { signup } from '@apis/auth';
+import { Form, Label, Input, LinkContainer, Button, Header, Error } from './styles';
 
 const SignUp = () => {
   const [email, onChangeEmail] = useInput('');
@@ -9,6 +9,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [mismatchError, setMismatchError] = useState(false);
+  const [signUpError, setSignUpError] = useState('');
 
   const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -23,15 +24,18 @@ const SignUp = () => {
   };
 
   const onSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      setSignUpError('');
 
       try {
         if (!mismatchError && nickname) {
-          const response = signup({ nickname, password, email });
+          const response = await signup({ nickname, password, email });
+          if (response) {
+          }
         }
       } catch (error) {
-        console.error(error);
+        setSignUpError((error as any).message);
       }
     },
     [email, nickname, password, passwordCheck, mismatchError],
@@ -70,6 +74,8 @@ const SignUp = () => {
               onChange={onChangePasswordCheck}
             />
           </div>
+          {mismatchError && <Error>비밀번호가 일치하지 않습니다.</Error>}
+          {signUpError && <Error>{signUpError}</Error>}
         </Label>
         <Button type="submit">회원가입</Button>
       </Form>
