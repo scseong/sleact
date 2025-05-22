@@ -2,6 +2,9 @@ import { useCallback, useState } from 'react';
 import useInput from '@hooks/useInput';
 import { signup } from '@apis/auth';
 import { Form, Label, Input, LinkContainer, Button, Header, Error } from './styles';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useToast } from '@hooks/useToast';
 
 const SignUp = () => {
   const [email, onChangeEmail] = useInput('');
@@ -10,6 +13,8 @@ const SignUp = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [mismatchError, setMismatchError] = useState(false);
   const [signUpError, setSignUpError] = useState('');
+  const { successTopRight } = useToast();
+  const navigate = useNavigate();
 
   const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -30,8 +35,11 @@ const SignUp = () => {
 
       try {
         if (!mismatchError && nickname) {
-          const response = await signup({ nickname, password, email });
-          if (response) {
+          const isSuccess = await signup({ nickname, password, email });
+
+          if (isSuccess) {
+            successTopRight({ message: '회원가입에 성공했습니다. 로그인 페이지로 이동합니다.' });
+            navigate('/login', { replace: true });
           }
         }
       } catch (error) {
