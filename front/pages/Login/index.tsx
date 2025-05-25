@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useToast } from '@hooks/useToast';
 import useInput from '@hooks/useInput';
 import useUser from '@hooks/useUser';
@@ -32,6 +32,10 @@ const Login = () => {
     },
     [email, password],
   );
+
+  if (user) {
+    return <Navigate to="/workspace/channel" replace={true} />;
+  }
 
   return (
     <div id="container">
