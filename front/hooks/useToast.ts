@@ -29,7 +29,7 @@ type ToastArgs = {
   timeout?: number;
 };
 
-export const useToast = () => {
+const useToast = () => {
   const successTopRight = ({ message, timeout }: ToastArgs) => {
     const topCenter: ToastOptions<unknown> = new ToastOption({
       position: 'top-right',
@@ -60,3 +60,5 @@ export const useToast = () => {
     warnTopRight,
   };
 };
+
+export default useToast;

@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react';
 import useInput from '@hooks/useInput';
-import { useToast } from '@hooks/useToast';
+import useToast from '@hooks/useToast';
 import { signup } from '@apis/auth';
 import { Form, Label, Input, LinkContainer, Button, Header, Error } from './styles';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import useUser from '@hooks/useUser';
 
 const SignUp = () => {
   const [email, onChangeEmail] = useInput('');
@@ -12,6 +13,7 @@ const SignUp = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [mismatchError, setMismatchError] = useState(false);
   const [signUpError, setSignUpError] = useState('');
+  const { user, mutate } = useUser();
   const { successTopRight } = useToast();
   const navigate = useNavigate();
 
@@ -47,6 +49,10 @@ const SignUp = () => {
     },
     [email, nickname, password, passwordCheck, mismatchError],
   );
+
+  if (user) {
+    return <Navigate to="/workspace/channel" replace={true} />;
+  }
 
   return (
     <div id="container">

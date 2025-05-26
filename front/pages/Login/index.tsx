@@ -1,18 +1,17 @@
 import { useCallback, useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { useToast } from '@hooks/useToast';
+import { Link, Navigate } from 'react-router-dom';
+import useToast from '@hooks/useToast';
 import useInput from '@hooks/useInput';
 import useUser from '@hooks/useUser';
 import { Form, Error, Label, Input, LinkContainer, Button, Header } from '@pages/SignUp/styles';
 import { login } from '@apis/auth';
 
 const Login = () => {
-  const { user } = useUser();
+  const { user, mutate } = useUser();
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
   const [logInError, setLogInError] = useState('');
   const { successTopRight } = useToast();
-  const navigate = useNavigate();
 
   const onSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,7 +23,7 @@ const Login = () => {
 
         if (isSuccess) {
           successTopRight({ message: '로그인에 성공했습니다.' });
-          navigate('/workspace/channel', { replace: true });
+          mutate();
         }
       } catch (error) {
         setLogInError((error as any).message);
