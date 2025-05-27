@@ -13,7 +13,7 @@ const Workspace = ({ children }: { children: React.ReactNode }) => {
       const res = await logout();
       successTopRight({ message: '로그아웃 되었습니다.' });
       if (res.status === 200) {
-        mutate();
+        mutate(false, { revalidate: false });
       }
     } catch (error) {
       console.error(error);

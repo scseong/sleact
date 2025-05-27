@@ -13,7 +13,7 @@ const SignUp = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [mismatchError, setMismatchError] = useState(false);
   const [signUpError, setSignUpError] = useState('');
-  const { user, mutate } = useUser();
+  const { user } = useUser();
   const { successTopRight } = useToast();
   const navigate = useNavigate();
 

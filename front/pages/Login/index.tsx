@@ -19,11 +19,10 @@ const Login = () => {
       setLogInError('');
 
       try {
-        const isSuccess = await login({ email, password });
-
-        if (isSuccess) {
+        const response = await login({ email, password });
+        if (response) {
           successTopRight({ message: '로그인에 성공했습니다.' });
-          mutate();
+          mutate(response.data);
         }
       } catch (error) {
         setLogInError((error as any).message);
