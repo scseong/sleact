@@ -1,8 +1,10 @@
-import useSWR from 'swr';
-import fetcher from '@utils/fetcher';
+import useSWR from "swr";
+import fetcher from "@utils/fetcher";
 
 const useUser = () => {
-  const { data, error, mutate, isLoading } = useSWR(`/api/users`, fetcher);
+  const { data, error, mutate, isLoading } = useSWR("/api/users", fetcher, {
+    dedupingInterval: 2000,
+  });
 
   return {
     user: data,

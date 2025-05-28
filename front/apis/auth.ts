@@ -1,8 +1,16 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const signup = async ({ email, nickname, password }: { email: string; nickname: string; password: string }) => {
+export const signup = async ({
+  email,
+  nickname,
+  password,
+}: {
+  email: string;
+  nickname: string;
+  password: string;
+}) => {
   try {
-    await axios.post('/api/users', {
+    await axios.post("/api/users", {
       email,
       nickname,
       password,
@@ -15,7 +23,7 @@ export const signup = async ({ email, nickname, password }: { email: string; nic
 
 export const login = async ({ email, password }: { email: string; password: string }) => {
   try {
-    return await axios.post('/api/users/login', {
+    return await axios.post("/api/users/login", {
       email,
       password,
     });
@@ -26,7 +34,7 @@ export const login = async ({ email, password }: { email: string; password: stri
 
 export const logout = async () => {
   try {
-    return axios.post('/api/users/logout', null, {
+    return axios.post("/api/users/logout", null, {
       withCredentials: true,
     });
   } catch (error) {

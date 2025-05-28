@@ -1,18 +1,18 @@
-import { useCallback, useState } from 'react';
-import useInput from '@hooks/useInput';
-import useToast from '@hooks/useToast';
-import { signup } from '@apis/auth';
-import { Form, Label, Input, LinkContainer, Button, Header, Error } from './styles';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import useUser from '@hooks/useUser';
+import { useCallback, useState } from "react";
+import useInput from "@hooks/useInput";
+import useToast from "@hooks/useToast";
+import { signup } from "@apis/auth";
+import { Form, Label, Input, LinkContainer, Button, Header, Error } from "./styles";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import useUser from "@hooks/useUser";
 
 const SignUp = () => {
-  const [email, onChangeEmail] = useInput('');
-  const [nickname, onChangeNickname] = useInput('');
-  const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
+  const [email, onChangeEmail] = useInput("");
+  const [nickname, onChangeNickname] = useInput("");
+  const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const [mismatchError, setMismatchError] = useState(false);
-  const [signUpError, setSignUpError] = useState('');
+  const [signUpError, setSignUpError] = useState("");
   const { user } = useUser();
   const { successTopRight } = useToast();
   const navigate = useNavigate();
@@ -32,15 +32,15 @@ const SignUp = () => {
   const onSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      setSignUpError('');
+      setSignUpError("");
 
       try {
         if (!mismatchError && nickname) {
           const isSuccess = await signup({ nickname, password, email });
 
           if (isSuccess) {
-            successTopRight({ message: '회원가입에 성공했습니다. 로그인 페이지로 이동합니다.' });
-            navigate('/login', { replace: true });
+            successTopRight({ message: "회원가입에 성공했습니다. 로그인 페이지로 이동합니다." });
+            navigate("/login", { replace: true });
           }
         }
       } catch (error) {
@@ -67,13 +67,25 @@ const SignUp = () => {
         <Label id="nickname-label">
           <span>닉네임</span>
           <div>
-            <Input type="text" id="nickname" name="nickname" value={nickname} onChange={onChangeNickname} />
+            <Input
+              type="text"
+              id="nickname"
+              name="nickname"
+              value={nickname}
+              onChange={onChangeNickname}
+            />
           </div>
         </Label>
         <Label id="password-label">
           <span>비밀번호</span>
           <div>
-            <Input type="new-password" id="password" name="password" value={password} onChange={onChangePassword} />
+            <Input
+              type="new-password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={onChangePassword}
+            />
           </div>
         </Label>
         <Label id="password-check-label">

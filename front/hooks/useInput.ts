@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
 const useInput = <T extends string | number>(
   initialValue: T,
@@ -12,7 +12,7 @@ const useInput = <T extends string | number>(
       target: { value },
     } = event;
 
-    if (typeof validator === 'function') {
+    if (typeof validator === "function") {
       isValid = validator(value as T);
     }
 

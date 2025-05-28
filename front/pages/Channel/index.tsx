@@ -1,4 +1,4 @@
-import Workspace from '@layouts/Workspace';
+import Workspace from "@layouts/Workspace";
 
 const Channel = () => {
   return (

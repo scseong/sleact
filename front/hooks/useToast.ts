@@ -1,6 +1,6 @@
-import { toast, ToastOptions, ToastPosition } from 'react-toastify';
+import { toast, ToastOptions, ToastPosition } from "react-toastify";
 
-type CustomToastIcon = ToastOptions['icon'];
+type CustomToastIcon = ToastOptions["icon"];
 
 class ToastOption {
   position: ToastPosition;
@@ -32,7 +32,7 @@ type ToastArgs = {
 const useToast = () => {
   const successTopRight = ({ message, timeout }: ToastArgs) => {
     const topCenter: ToastOptions<unknown> = new ToastOption({
-      position: 'top-right',
+      position: "top-right",
       timeout: timeout ?? 1000,
     });
     toast.success(message, topCenter);
@@ -40,7 +40,7 @@ const useToast = () => {
 
   const errorTopRight = ({ message, timeout }: ToastArgs) => {
     const topCenter: ToastOptions = new ToastOption({
-      position: 'top-right',
+      position: "top-right",
       timeout: timeout ?? 1000,
     });
     toast.error(message, topCenter);
@@ -48,7 +48,7 @@ const useToast = () => {
 
   const warnTopRight = ({ message, timeout }: ToastArgs) => {
     const topCenter: ToastOptions = new ToastOption({
-      position: 'top-right',
+      position: "top-right",
       timeout: timeout ?? 1000,
     });
     toast.warn(message, topCenter);

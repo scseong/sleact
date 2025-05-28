@@ -1,28 +1,28 @@
-import { useCallback, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import useToast from '@hooks/useToast';
-import useInput from '@hooks/useInput';
-import useUser from '@hooks/useUser';
-import { Form, Error, Label, Input, LinkContainer, Button, Header } from '@pages/SignUp/styles';
-import { login } from '@apis/auth';
+import { useCallback, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import useToast from "@hooks/useToast";
+import useInput from "@hooks/useInput";
+import useUser from "@hooks/useUser";
+import { Form, Error, Label, Input, LinkContainer, Button, Header } from "@pages/SignUp/styles";
+import { login } from "@apis/auth";
 
 const Login = () => {
   const { user, mutate } = useUser();
-  const [email, onChangeEmail] = useInput('');
-  const [password, onChangePassword] = useInput('');
-  const [logInError, setLogInError] = useState('');
+  const [email, onChangeEmail] = useInput("");
+  const [password, onChangePassword] = useInput("");
+  const [logInError, setLogInError] = useState("");
   const { successTopRight } = useToast();
 
   const onSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      setLogInError('');
+      setLogInError("");
 
       try {
         const response = await login({ email, password });
         if (response) {
-          successTopRight({ message: '로그인에 성공했습니다.' });
-          mutate(response.data);
+          successTopRight({ message: "로그인에 성공했습니다." });
+          mutate(response.data, { revalidate: false });
         }
       } catch (error) {
         setLogInError((error as any).message);
@@ -48,7 +48,13 @@ const Login = () => {
         <Label id="password-label">
           <span>비밀번호</span>
           <div>
-            <Input type="current-password" id="password" name="password" value={password} onChange={onChangePassword} />
+            <Input
+              type="current-password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={onChangePassword}
+            />
           </div>
           {logInError && <Error>이메일과 비밀번호 조합이 일치하지 않습니다.</Error>}
         </Label>
