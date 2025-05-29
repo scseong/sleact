@@ -1,10 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import loadable from "@loadable/component";
 import App from "./layouts/App";
+import Workspace from "@layouts/Workspace";
 
 const Login = loadable(() => import("@pages/Login"));
 const SignUp = loadable(() => import("@pages/SignUp"));
 const Channel = loadable(() => import("@pages/Channel"));
+const DirectMessage = loadable(() => import("@pages/DirectMessage"));
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +15,14 @@ export const router = createBrowserRouter([
     children: [
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <SignUp /> },
-      { path: "/workspace/channel", element: <Channel /> },
+      {
+        path: "/workspace",
+        element: <Workspace />,
+        children: [
+          { path: "channel", element: <Channel /> },
+          { path: "dm", element: <DirectMessage /> },
+        ],
+      },
     ],
   },
 ]);
