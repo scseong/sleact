@@ -1,5 +1,11 @@
+import { Container, Header } from "./styles";
+
 const Channel = () => {
-  return <div>로그인하신 것을 축하드려요!</div>;
+  return (
+    <Container>
+      <Header>채널!</Header>
+    </Container>
+  );
 };
 
 export default Channel;

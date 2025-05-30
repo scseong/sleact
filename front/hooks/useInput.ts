@@ -1,9 +1,12 @@
-import { useCallback, useState } from "react";
+import { SetStateAction, useCallback, useState } from "react";
 
-const useInput = <T extends string | number>(
-  initialValue: T,
-  validator?: (value: T) => boolean,
-): [T, (event: React.ChangeEvent<HTMLInputElement>) => void] => {
+type ReturnTypes<T> = [
+  T,
+  (e: React.ChangeEvent<HTMLInputElement>) => void,
+  React.Dispatch<SetStateAction<T>>,
+];
+
+const useInput = <T>(initialValue: T, validator?: (value: T) => boolean): ReturnTypes<T> => {
   let isValid = true;
   const [value, setValue] = useState(initialValue);
 
@@ -21,7 +24,7 @@ const useInput = <T extends string | number>(
     }
   }, []);
 
-  return [value, onChange];
+  return [value, onChange, setValue];
 };
 
 export default useInput;
