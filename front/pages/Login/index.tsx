@@ -22,7 +22,7 @@ const Login = () => {
         const response = await login({ email, password });
         if (response) {
           successTopRight({ message: "로그인에 성공했습니다." });
-          mutate(response.data, { revalidate: false });
+          mutate();
         }
       } catch (error) {
         setLogInError((error as any).message);
