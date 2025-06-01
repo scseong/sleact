@@ -30,7 +30,6 @@ export const ProfileModal = styled.div`
   & > div {
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
   }
   & #profile-name {
     font-weight: bold;
