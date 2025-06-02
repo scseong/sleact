@@ -19,10 +19,9 @@ const Menu = ({ children, show, onCloseModal, style, closeButton = true }: Props
   return (
     <CreateMenu onClick={onCloseModal}>
       <div onClick={stopPropagation} style={style}>
-        menu
+        <CloseModalButton onClick={onCloseModal}>&times;</CloseModalButton>
+        {children}
       </div>
-      <CloseModalButton onClick={onCloseModal}>&times;</CloseModalButton>
-      {children}
     </CreateMenu>
   );
 };

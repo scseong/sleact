@@ -121,7 +121,7 @@ const Workspace = () => {
           </span>
           {showUserMenu && (
             <Menu
-              style={{ right: 0, top: 38 }}
+              style={{ right: 16, top: 38 }}
               show={showUserMenu}
               onCloseModal={onClickUserProfile}
             >
