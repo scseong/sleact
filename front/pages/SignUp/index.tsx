@@ -51,7 +51,7 @@ const SignUp = () => {
   );
 
   if (user) {
-    return <Navigate to="/workspace/channel" replace={true} />;
+    return <Navigate to="/workspace/slaect/channel/일반" replace={true} />;
   }
 
   return (

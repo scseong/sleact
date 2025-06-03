@@ -13,14 +13,14 @@ export const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      { path: "/login", element: <Login /> },
-      { path: "/signup", element: <SignUp /> },
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <SignUp /> },
       {
-        path: "/workspace",
+        path: "workspace/:workspace",
         element: <Workspace />,
         children: [
-          { path: "channel", element: <Channel /> },
-          { path: "dm", element: <DirectMessage /> },
+          { path: "channel/:channel", element: <Channel /> },
+          { path: "dm/:id", element: <DirectMessage /> },
         ],
       },
     ],
