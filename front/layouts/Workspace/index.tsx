@@ -26,9 +26,14 @@ import axios from "axios";
 import Modal from "@components/Modal";
 import useInput from "@hooks/useInput";
 import CreateChannelModal from "@components/CreateChannelModal";
+import { useParams } from "react-router-dom";
+import useChannel from "@hooks/useChannel";
 
 const Workspace = () => {
-  const { user, mutate, isLoading } = useUser();
+  const { workspace } = useParams();
+  const { user, mutate: userMutate, isLoading } = useUser();
+  const { channelData, mutate: channelMutate } = useChannel(user, workspace);
+
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showCreateWorkspaceModal, setShowCreateWorkspaceModal] = useState(false);
   const [showWorkspaceModal, setShowWorkspaceModal] = useState(false);
@@ -44,7 +49,7 @@ const Workspace = () => {
       const res = await logout();
       successTopRight({ message: "로그아웃 되었습니다." });
       if (res.status === 200) {
-        mutate(false, { revalidate: false });
+        userMutate(false, { revalidate: false });
       }
     } catch (error) {
       console.error(error);
@@ -163,6 +168,9 @@ const Workspace = () => {
                 <button onClick={onLogout}>로그아웃</button>
               </WorkspaceModal>
             </Menu>
+            {channelData?.map((v) => (
+              <div>{v.name}</div>
+            ))}
           </MenuScroll>
         </Channels>
         <Chats>
@@ -183,9 +191,10 @@ const Workspace = () => {
         </form>
       </Modal>
       <CreateChannelModal
+        user={user}
         show={showCreateChannelModal}
         onCloseModal={onCloseModal}
-        // setShowCreateChannelModal={setShowCreateChannelModal}
+        setShowCreateChannelModal={setShowCreateChannelModal}
       />
     </div>
   );
