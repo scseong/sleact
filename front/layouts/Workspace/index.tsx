@@ -28,6 +28,7 @@ import useInput from "@hooks/useInput";
 import CreateChannelModal from "@components/CreateChannelModal";
 import { useParams } from "react-router-dom";
 import useChannel from "@hooks/useChannel";
+import InviteWorkspaceModal from "@components/InviteWorkspaceModal";
 
 const Workspace = () => {
   const { workspace } = useParams();
@@ -195,6 +196,11 @@ const Workspace = () => {
         show={showCreateChannelModal}
         onCloseModal={onCloseModal}
         setShowCreateChannelModal={setShowCreateChannelModal}
+      />
+      <InviteWorkspaceModal
+        show={showInviteWorkspaceModal}
+        onCloseModal={onCloseModal}
+        setShowInviteWorkspaceModal={setShowInviteWorkspaceModal}
       />
     </div>
   );
