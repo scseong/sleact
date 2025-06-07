@@ -6,7 +6,7 @@ import { Button, Input, Label } from "@pages/SignUp/styles";
 import { inviteWorkspace } from "@apis/workspace";
 import useToast from "@hooks/useToast";
 import useUser from "@hooks/useUser";
-import useMember from "@hooks/useMember";
+import { useMember } from "@hooks/useMember";
 
 interface Props {
   show: boolean;
@@ -18,13 +18,13 @@ const InviteWorkspaceModal: FC<Props> = ({ show, onCloseModal, setShowInviteWork
   const { workspace } = useParams<{ workspace: string; channel: string }>();
   const [newMember, onChangeNewMember, setMember] = useInput("");
   const { user } = useUser();
-  const { mutate } = useMember(user, workspace);
+  const { mutate } = useMember(user, workspace!);
   const { errorTopRight } = useToast();
 
   const onInviteMember = useCallback(
     async (e) => {
       e.preventDefault();
-      if (!newMember || !newMember.trim()) return;
+      if (!newMember || !newMember.trim() || !workspace) return;
 
       try {
         await inviteWorkspace(workspace, newMember);
@@ -39,6 +39,8 @@ const InviteWorkspaceModal: FC<Props> = ({ show, onCloseModal, setShowInviteWork
     },
     [newMember, workspace],
   );
+
+  console.log(newMember);
 
   return (
     <Modal show={show} onCloseModal={onCloseModal}>
