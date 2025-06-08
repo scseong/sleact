@@ -29,6 +29,7 @@ import CreateChannelModal from "@components/CreateChannelModal";
 import useChannel from "@hooks/useChannel";
 import InviteWorkspaceModal from "@components/InviteWorkspaceModal";
 import InviteChannelModal from "@components/InviteChannelModal";
+import DMList from "@components/DMList";
 
 const Workspace = () => {
   const { workspace } = useParams();
@@ -175,6 +176,7 @@ const Workspace = () => {
             {channelData?.map((v) => (
               <div key={v.id}>{v.name}</div>
             ))}
+            <DMList />
           </MenuScroll>
         </Channels>
         <Chats>
