@@ -18,6 +18,7 @@ const InviteChannelModal: FC<Props> = ({ show, onCloseModal, setShowInviteChanne
   const { workspace, channel } = useParams<{ workspace: string; channel: string }>();
   const [newMember, onChangeNewMember, setNewMember] = useInput("");
   const { user } = useUser();
+
   const { mutate: memberMutate } = useChannelMember(user, workspace!, channel!);
   const { errorTopRight } = useToast();
 
