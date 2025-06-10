@@ -7,8 +7,10 @@ const useUser = () => {
     dedupingInterval: 2000,
   });
 
+  const user = data === false ? undefined : data;
+
   return {
-    user: data,
+    user,
     isLoading,
     isError: error,
     mutate,
