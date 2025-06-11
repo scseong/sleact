@@ -16,7 +16,7 @@ export const createChannel = async (workspace: string, newChannel: string) => {
 
 export const inviateChannel = async (workspace: string, channel: string, email: string) => {
   try {
-    await axios.post(`/api/workspaces/${workspace}/channels/${channel}/members`, {
+    return await axios.post(`/api/workspaces/${workspace}/channels/${channel}/members`, {
       email,
     });
   } catch (error) {
