@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "react-mentions": "^4.4.10"
-  },
-  "devDependencies": {
-    "@types/react-mentions": "^4.4.1"
-  }
-}
