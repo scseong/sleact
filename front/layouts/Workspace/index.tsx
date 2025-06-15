@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, Navigate, Outlet, useParams } from "react-router-dom";
 import useUser from "@hooks/useUser";
 import useToast from "@hooks/useToast";
@@ -31,6 +31,7 @@ import InviteWorkspaceModal from "@components/InviteWorkspaceModal";
 import InviteChannelModal from "@components/InviteChannelModal";
 import DMList from "@components/DMList";
 import ChannelList from "@components/ChannelList";
+import useSocket from "@hooks/useSocket";
 
 const Workspace = () => {
   const { workspace } = useParams();
@@ -46,6 +47,7 @@ const Workspace = () => {
 
   const [newWorkspace, onChangeNewWorkspace, setNewWorkspace] = useInput<string>("");
   const [newUrl, onChangeNewUrl, setNewUrl] = useInput<string>("");
+  const [socket, disconnect] = useSocket(workspace);
   const { successTopRight } = useToast();
 
   const onLogout = useCallback(async () => {
@@ -110,6 +112,18 @@ const Workspace = () => {
   const toggleWorkspaceModal = useCallback(() => {
     setShowWorkspaceModal((prev) => !prev);
   }, []);
+
+  useEffect(() => {
+    if (channelData && user && socket) {
+      socket.emit("login", { id: user.id, channels: channelData.map((channel) => channel.id) });
+    }
+  }, [socket, channelData, user]);
+
+  useEffect(() => {
+    return () => {
+      disconnect();
+    };
+  }, [workspace, disconnect]);
 
   if (isLoading) {
     return <div>로딩중...</div>;

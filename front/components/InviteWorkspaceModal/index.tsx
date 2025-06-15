@@ -40,8 +40,6 @@ const InviteWorkspaceModal: FC<Props> = ({ show, onCloseModal, setShowInviteWork
     [newMember, workspace],
   );
 
-  console.log(newMember);
-
   return (
     <Modal show={show} onCloseModal={onCloseModal}>
       <form onSubmit={onInviteMember}>

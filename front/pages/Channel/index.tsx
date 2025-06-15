@@ -11,12 +11,12 @@ const Channel = () => {
   const { workspace, id } = useParams<{ workspace: string; id: string }>();
 
   const onSubmitForm = useCallback(
-    (e) => {
+    async (e) => {
       try {
         e.preventDefault();
 
         if (chat?.trim()) {
-          sendChatMessage(workspace!, id!, chat);
+          await sendChatMessage(workspace!, id!, chat);
         }
       } catch (error) {
         console.dir(error);

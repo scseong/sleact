@@ -21,7 +21,6 @@ const DirectMessage = () => {
     (e) => {
       try {
         e.preventDefault();
-        console.log("hi");
 
         if (chat?.trim()) {
           sendChatMessage(workspace!, id!, chat);

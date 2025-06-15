@@ -1,17 +1,30 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams, Navigate, NavLink } from "react-router-dom";
 import useUser from "@hooks/useUser";
 import { useMember } from "@hooks/useMember";
 import { CollapseButton } from "@components/DMList/styles";
+import useSocket from "@hooks/useSocket";
 
 const DMList = () => {
   const { workspace } = useParams<{ workspace: string }>();
   const { user } = useUser();
   const { memberData } = useMember(user, workspace!);
   const [channelCollapse, setChannelCollapse] = useState(false);
+  const [onlineList, setOnlineList] = useState<number[]>([]);
+  const [socket, disconnet] = useSocket(workspace);
 
   const toggleChannelCollapse = useCallback(() => {
     setChannelCollapse((prev) => !prev);
+  }, []);
+
+  useEffect(() => {
+    socket?.on("onlineList", (data: number[]) => {
+      setOnlineList(data);
+    });
+
+    return () => {
+      socket?.off("onlineList");
+    };
   }, []);
 
   if (!user) {
