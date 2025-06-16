@@ -1,9 +1,19 @@
+import { IDM } from "@typings/db";
 import { ChatZone, Section } from "./styles";
+import Chat from "@components/Chat";
 
-const ChatList = () => {
+type Props = {
+  chats: IDM[];
+};
+
+const ChatList = ({ chats }: Props) => {
   return (
     <ChatZone>
-      <Section>section</Section>
+      <Section>
+        {chats.map((chat) => (
+          <Chat key={chat.id} chat={chat} />
+        ))}
+      </Section>
     </ChatZone>
   );
 };

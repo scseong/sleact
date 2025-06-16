@@ -35,6 +35,7 @@ const DirectMessage = () => {
   );
 
   if (!myData || !memberData) return null;
+  if (!chatData) return null;
 
   return (
     <Container>
@@ -45,7 +46,7 @@ const DirectMessage = () => {
         />
         <span>{memberData.nickname}</span>
       </Header>
-      <ChatList />
+      <ChatList chats={chatData} />
       <ChatBox
         chat={chat}
         onChangeChat={onChangeChat}
