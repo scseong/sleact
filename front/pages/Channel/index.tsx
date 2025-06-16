@@ -30,7 +30,7 @@ const Channel = () => {
   return (
     <Container>
       <Header>채널!</Header>
-      <ChatList />
+      <ChatList chats={[]} />
       <ChatBox
         chat={chat}
         onChangeChat={onChangeChat}
