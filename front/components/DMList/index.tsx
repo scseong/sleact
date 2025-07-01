@@ -46,7 +46,7 @@ const DMList = () => {
       <div>
         {!channelCollapse &&
           memberData?.map((member) => {
-            const isOnline = true;
+            const isOnline = onlineList.find((v) => v === member.id);
             return (
               <NavLink
                 key={member.id}
